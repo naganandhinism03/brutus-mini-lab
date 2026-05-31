@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+
+  ssh_secured:
+    build: ./ssh/secured
+    container_name: ssh_secured
+    ports:
+      - "2222:22"
+    volumes:
+      - ./ssh/secured/fail2ban:/etc/fail2ban
+    networks:
+      - brutusnet
+    restart: unless-stopped
+
+  ftp_secured:
+    build: ./ftp/secured
+    container_name: ftp_secured
+    ports:
+      - "2121:21"
+    networks:
+      - brutusnet
+    restart: unless-stopped
+
+  http_secured:
+    build: ./http/secured
+    container_name: http_secured
+    ports:
+      - "8080:80"
+    networks:
+      - brutusnet
+    restart: unless-stopped
+
+  brutus_attacker:
+    image: python:3.10
+    container_name: brutus_attacker
+    volumes:
+      - ./wordlists:/wordlists
+      - ./brutus:/brutus
+    working_dir: /brutus
+    command: tail -f /dev/null
+    networks:
+      - brutusnet
+    restart: unless-stopped
+
+networks:
+  brutusnet:
+    driver: bridge

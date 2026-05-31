@@ -1,0 +1,40 @@
+services:
+
+  ssh_target:
+    build: ./configs/ssh
+    container_name: ssh_target
+    ports:
+      - "22:22"
+    networks:
+      - brutusnet
+
+  ftp_target:
+    build: ./configs/ftp
+    container_name: ftp_target
+    ports:
+      - "21:21"
+    networks:
+      - brutusnet
+
+  http_target:
+    build: ./configs/https
+    container_name: http_target
+    ports:
+      - "80:80"
+    networks:
+      - brutusnet
+
+  brutus_attacker:
+    image: python:3.10
+    container_name: brutus_attacker
+    volumes:
+      - ./configs/wordlists:/wordlists
+      - ./configs/brutus:/brutus
+    working_dir: /brutus
+    command: tail -f /dev/null
+    networks:
+      - brutusnet
+
+networks:
+  brutusnet:
+    driver: bridge
