@@ -1,0 +1,18 @@
+# Secured HTTP service for Brutus mini-lab
+FROM python:3.10-slim
+
+# Install required packages
+RUN pip install flask
+
+# Create app directory
+WORKDIR /app
+
+# Copy token-based authentication middleware and content
+COPY token_auth.py /app/token_auth.py
+COPY index.html /app/index.html
+
+# Expose secured HTTP port
+EXPOSE 80
+
+# Start the secured HTTP service
+CMD ["python", "token_auth.py"]

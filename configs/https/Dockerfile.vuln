@@ -1,0 +1,13 @@
+# Vulnerable HTTP service (Basic Auth)
+FROM httpd:2.4
+
+# Copy weak authentication setup
+COPY .htpasswd /usr/local/apache2/.htpasswd
+COPY ./index.html /usr/local/apache2/htdocs/index.html
+
+# Enable Basic Auth
+RUN echo 'AuthType Basic\nAuthName "Restricted"\nAuthUserFile /usr/local/apache2/.htpasswd\nRequire valid-user' \
+    > /usr/local/apache2/conf/httpd.conf
+
+EXPOSE 80
+CMD ["httpd-foreground"]

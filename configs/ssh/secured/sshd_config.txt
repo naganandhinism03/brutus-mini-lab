@@ -1,0 +1,12 @@
+Port 22
+PermitRootLogin no
+PasswordAuthentication yes
+MaxAuthTries 3
+LoginGraceTime 30
+AllowUsers testuser
+UsePAM yes
+ChallengeResponseAuthentication no
+X11Forwarding no
+PrintMotd no
+ClientAliveInterval 120
+ClientAliveCountMax 2

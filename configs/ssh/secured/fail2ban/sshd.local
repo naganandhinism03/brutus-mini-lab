@@ -1,0 +1,3 @@
+[Definition]
+failregex = ^%(__prefix_line)sFailed password for .* from <HOST> port .*
+ignoreregex =

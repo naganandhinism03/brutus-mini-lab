@@ -1,0 +1,25 @@
+listen=YES
+listen_ipv6=NO
+
+# Vulnerable settings
+anonymous_enable=YES
+local_enable=YES
+write_enable=YES
+
+local_umask=022
+dirmessage_enable=YES
+use_localtime=YES
+xferlog_enable=YES
+
+connect_from_port_20=YES
+pam_service_name=vsftpd
+
+# No chroot (vulnerable)
+chroot_local_user=NO
+
+# No rate limiting (vulnerable)
+max_clients=0
+max_per_ip=0
+
+# Disable sandbox (vulnerable)
+seccomp_sandbox=NO
